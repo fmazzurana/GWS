@@ -2,7 +2,7 @@
     <wb-module deploy-name="GWS">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="GWS"/>
         <property name="java-output-path" value="/GWS/build/classes"/>
+        <property name="context-root" value="gws"/>
     </wb-module>
 </project-modules>
