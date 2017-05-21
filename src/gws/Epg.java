@@ -22,7 +22,7 @@ import beans.GenreBean;
 import beans.MovieBean;
 import beans.StringBean;
 import commons.Utils;
-import database.DBException;
+import database.DbException;
 import database.EpgDatabase;
 import net.WSResponse;
 
@@ -183,7 +183,7 @@ public class Epg {
 				return WSResponse.Error(myName, Status.NOT_FOUND, String.format("No channels found for genreId: {}", id));
 			else
 				return WSResponse.OK(channels);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -195,7 +195,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			List<String> controls =  db.controlsList();
 			return WSResponse.OK(controls);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -207,7 +207,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			List<EventsSpecialBean> specials =  db.eventsListSpecials();
 			return WSResponse.OK(specials);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -219,7 +219,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			List<MovieBean> movies =  db.eventsListMovies(genre);
 			return WSResponse.OK(movies);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -238,7 +238,7 @@ public class Epg {
 				return WSResponse.Error(myName, Status.NOT_FOUND, String.format("Genre not found: {}", id));
 			else
 				return WSResponse.OK(genres);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -250,7 +250,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			List<MovieBean> movies =  db.moviesList(title, genre, fulldescr, special, ctrl);
 			return WSResponse.OK(movies);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -262,7 +262,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			List<StringBean> genres =  db.moviesListGenres();
 			return WSResponse.OK(genres);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -274,7 +274,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			db.moviesUpdateCtrl(movieId, ctrl);
 			return WSResponse.OK(null);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}
@@ -286,7 +286,7 @@ public class Epg {
 			EpgDatabase db = new EpgDatabase(PropertiesFile);
 			List<String> specialLabels =  db.specialsListAttributes();
 			return WSResponse.OK(specialLabels);
-		} catch (DBException e) {
+		} catch (DbException e) {
 			return WSResponse.ServerError(myName, e.getMessage());
 		}
 	}

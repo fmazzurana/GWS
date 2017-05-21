@@ -31,17 +31,19 @@ public class Mail {
 	@Path("/send")
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	// call exemple: mail/send?to=<text>&subject=<text>&text=<text>
+	// call exemple: mail/send?to=<text>&cc=<text>&subject=<text>&text=<text>&attach=<text>
 	public Response Send(@Context HttpServletRequest reqContext,
 			@QueryParam("to") String toAddr,
+			@QueryParam("cc") String ccAddr,
 			@QueryParam("subject") String subject,
-			@QueryParam("text") String text) {
+			@QueryParam("text") String text,
+			@QueryParam("attach") String attach) {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
-		logger.info("{} -> {}: to = {}, subject: {}, text: {}", reqContext.getRemoteAddr(), myName, toAddr, subject, text);
+		logger.info("{} -> {}: to = {}, cc = {}, subject: {}, text: {}, attach: {}", reqContext.getRemoteAddr(), myName, toAddr, ccAddr, subject, text, attach);
 
 		GMail gmail = new GMail(senderUsr, senderPwd);
 		try {
-			gmail.Send(toAddr, subject, text);
+			gmail.Send(toAddr, ccAddr, subject, text, attach);
 			return WSResponse.OK(new Result("OK"));
 		} catch (MyException ex) {
 			return WSResponse.ServerError(myName, ex.getMessage());
