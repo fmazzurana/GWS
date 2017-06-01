@@ -39,7 +39,6 @@ import net.WSResponse;
 public class Epg {
 
 	final static Logger logger = LogManager.getLogger(Epg.class);
-	final static String PropertiesFile = "gws.properties";
 
 	// --------------------------------------------------------------------------------------------
 	// Methods on CHANNELS
@@ -177,7 +176,7 @@ public class Epg {
 			return WSResponse.Error(myName, Status.BAD_REQUEST, String.format("Invalid genre id: {}", genreId));
 
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<ChannelBean> channels = db.channelsList(id);
 			if (channels.isEmpty())
 				return WSResponse.Error(myName, Status.NOT_FOUND, String.format("No channels found for genreId: {}", id));
@@ -192,7 +191,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}", remoteIp, myName);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<String> controls =  db.controlsList();
 			return WSResponse.OK(controls);
 		} catch (DbException e) {
@@ -204,7 +203,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}", remoteIp, myName);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<EventsSpecialBean> specials =  db.eventsListSpecials();
 			return WSResponse.OK(specials);
 		} catch (DbException e) {
@@ -216,7 +215,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}: genre = {}", remoteIp, myName, genre);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<MovieBean> movies =  db.eventsListMovies(genre);
 			return WSResponse.OK(movies);
 		} catch (DbException e) {
@@ -232,7 +231,7 @@ public class Epg {
 			return WSResponse.Error(myName, Status.BAD_REQUEST, String.format("Invalid genre id: {}", genreId));
 
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<GenreBean> genres =  db.genresList(EpgDatabase.GenresEnabled.ALL, id);
 			if (genres.isEmpty())
 				return WSResponse.Error(myName, Status.NOT_FOUND, String.format("Genre not found: {}", id));
@@ -247,7 +246,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}: title = {}, genre = {}, fulldescr = {}, special = {}, ctrl = {}", remoteIp, myName, title, genre, fulldescr, special, ctrl);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<MovieBean> movies =  db.moviesList(title, genre, fulldescr, special, ctrl);
 			return WSResponse.OK(movies);
 		} catch (DbException e) {
@@ -259,7 +258,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}", remoteIp, myName);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<StringBean> genres =  db.moviesListGenres();
 			return WSResponse.OK(genres);
 		} catch (DbException e) {
@@ -271,7 +270,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}: movieId = {}, ctrl = {}", remoteIp, myName, movieId, ctrl);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			db.moviesUpdateCtrl(movieId, ctrl);
 			return WSResponse.OK(null);
 		} catch (DbException e) {
@@ -283,7 +282,7 @@ public class Epg {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}", remoteIp, myName);
 		try {
-			EpgDatabase db = new EpgDatabase(PropertiesFile);
+			EpgDatabase db = new EpgDatabase();
 			List<String> specialLabels =  db.specialsListAttributes();
 			return WSResponse.OK(specialLabels);
 		} catch (DbException e) {

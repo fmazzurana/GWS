@@ -24,8 +24,6 @@ public class Mail {
 	// Constants
 	// --------------------------------------------------------------------------------------------
 	final static Logger logger = LogManager.getLogger(Mail.class);
-	private static final String senderUsr = "myberry.giant@gmail.com";
-	private static final String senderPwd = "Eir3annach";
 
 	@GET
 	@Path("/send")
@@ -41,7 +39,7 @@ public class Mail {
 		StackTraceElement myName = Thread.currentThread().getStackTrace()[2];
 		logger.info("{} -> {}: to = {}, cc = {}, subject: {}, text: {}, attach: {}", reqContext.getRemoteAddr(), myName, toAddr, ccAddr, subject, text, attach);
 
-		GMail gmail = new GMail(senderUsr, senderPwd);
+		GMail gmail = new GMail(Conf.mailSenderUsr, Conf.mailSenderPwd);
 		try {
 			gmail.Send(toAddr, ccAddr, subject, text, attach);
 			return WSResponse.OK(new Result("OK"));
